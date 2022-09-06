@@ -45,10 +45,17 @@ export class GameGateway implements OnGatewayConnection, OnGatewayDisconnect {
       .to(data.room)
       .emit("userLeftRoom", { client: client.id, room: data.room });
   }
-  @SubscribeMessage("scoreChange")
-  scoreChange(client: Socket, msg: any) {
-    this.server.emit("scoreChanged", msg);
-  }
+  
+
+
+  @SubscribeMessage("onScoreUp")
+  async scoreUp(client : Socket ,msg : {roomId , player}) {
+    const room = await this.Service.getOne(msg.roomId);
+     const player =  room.players.find(p => p.username === msg.player);
+      console.log(room  , "hedhy lgiineeha ") ;
+      console.log("player " , player)
+      this.server.emit("scoreUp" , msg);
+    }
 
   @SubscribeMessage("startGame")
   async startGame(client: Socket, room: any) {
