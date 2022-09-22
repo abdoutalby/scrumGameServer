@@ -49,7 +49,8 @@ export class RoomService {
 
   //get players 
   async getPlayers(id : string ){
-    const r = await this.getOne(id);
+    const r = await this.Room.findOne({_id : id});
+    console.log(r)
     if(r){
     return r.players;
     }else{

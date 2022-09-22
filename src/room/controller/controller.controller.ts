@@ -35,8 +35,7 @@ export class ControllerController {
   }
 
 
-  @UseGuards(JwtAuthGuard)
-  @Get(':id/players')
+  @Get('/players/:id')
   async getPlayers(@Param('id')id : string ){
       return this.service.getPlayers(id);
   }
